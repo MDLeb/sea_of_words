@@ -1,5 +1,7 @@
 import { _decorator, Color, Component, Enum, Label, Node, NodeEventType, Sprite, tween } from 'cc';
 import { colorTween } from './helpers/colorTween';
+import { GameEvents } from './events/GameEvents';
+import { gameEventTarget } from './events/GameEventTarget';
 const { ccclass, property } = _decorator;
 
 enum letterStyles {
@@ -30,6 +32,7 @@ export class Letter extends Component {
     _label;
     _bgSprite;
 
+
     protected onEnable(): void {
         this._label = this.node.getComponentInChildren(Label);
         this._bgSprite = this.node.getComponent(Sprite);
@@ -44,31 +47,34 @@ export class Letter extends Component {
         this._letterValue = letter;
         this._label.string = letter.toUpperCase();
     }
-
+    getValue() {
+        return this._letterValue
+    }
 
 
     _subscribeEvents(subscribe: boolean) {
         const fn = subscribe ? "on" : "off";
 
-        this.node[fn](NodeEventType.TOUCH_MOVE, this.onLetterChosen, this);
-        this.node[fn](NodeEventType.TOUCH_CANCEL, this.onLetterCancelled, this);
-
-        // gameEventTarget[fn](GameEvents.WORD_CORRECT, this.onWordCorrect, this);
+        gameEventTarget[fn](GameEvents.LETTER_HOVER, this.onLetterHover, this);
     }
 
     _setCurrentStyle(style: letterStyles) {
         const currentStyle = this.letterStyles[style];
 
-        if (this._currentStyle === currentStyle.style) return
 
         this._currentStyle = currentStyle.style;
-        
-        colorTween({duration: 0.3, target: this._bgSprite, targetColor: currentStyle.bgSpriteColor})
-        colorTween({duration: 0.3, target: this._label, targetColor: currentStyle.letterColor})
+
+        colorTween({ duration: 0.3, target: this._bgSprite, targetColor: currentStyle.bgSpriteColor })
+        colorTween({ duration: 0.3, target: this._label, targetColor: currentStyle.letterColor })
     }
 
-    onLetterChosen() {
-        this._setCurrentStyle(letterStyles.CHOSEN)
+    onLetterHover(node: Node) {
+        if (this.node !== node) return;
+
+        if (this._currentStyle !== letterStyles.CHOSEN) {
+            gameEventTarget.emit(GameEvents.LETTER_CHOSEN, this.node);
+            this._setCurrentStyle(letterStyles.CHOSEN)
+        }
 
     }
 

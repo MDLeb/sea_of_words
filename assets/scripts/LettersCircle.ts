@@ -1,5 +1,8 @@
-import { _decorator, CCFloat, Component, instantiate, Node, Prefab, v3 } from 'cc';
+import { _decorator, CCFloat, Component, instantiate, Node, Prefab, v3, geometry, Line, Graphics, Vec3, EventTouch } from 'cc';
 import { Letter } from './Letter';
+import { gameEventTarget } from './events/GameEventTarget';
+import { GameEvents } from './events/GameEvents';
+
 const { ccclass, property } = _decorator;
 
 @ccclass('LettersCircle')
@@ -13,14 +16,30 @@ export class LettersCircle extends Component {
 
     _letters: string[] = [];
     _lettersNodes: Node[] = [];
+    _lettersParentNode: Node;
+
+    _dynamicWord: Node[] = [];
+
+    protected onEnable(): void {
+        this._subscribeEvents(true);
+    }
+    protected onDisable(): void {
+        this._subscribeEvents(false);
+    }
+
+    _subscribeEvents(subscribe: boolean) {
+        const fn = subscribe ? "on" : "off";
+
+        gameEventTarget[fn](GameEvents.LETTER_CHOSEN, this.onLetterChosen, this);
+    }
 
     setLetters(letters: string[]) {
+        this._lettersParentNode = this.node.getChildByName('letters_node');
         this._letters = letters;
         letters.forEach((letter: string, i: number) => {
             const letterNode = instantiate(this.letterPrefab);
-            this.node.addChild(letterNode);
-            console.log(letterNode);
-            
+            this._lettersParentNode.addChild(letterNode);
+
 
             const angle = Math.PI * (0.5 + (2 / letters.length * i));
             const x = Math.cos(angle) * this.radius;
@@ -30,14 +49,27 @@ export class LettersCircle extends Component {
 
             letterNode.getComponent(Letter).setValue(letter);
         })
-
     }
 
-    start() {
-
+    getWorld() {
+        return this._dynamicWord
+            .map((node) => node.getComponent(Letter).getValue())
+            .reduce((a, b) => a + b);
     }
 
-    update(deltaTime: number) {
+    onLetterChosen(node: Node) {
+        const length = this._dynamicWord.length;
+       
+
+        if (!length) {
+            this._dynamicWord.push(node);
+        } else if (this._dynamicWord[length - 2] === node) {
+            this._dynamicWord.length--;
+        } else {
+            this._dynamicWord.push(node)
+        }
+
+        console.log(this.getWorld());
 
     }
 }

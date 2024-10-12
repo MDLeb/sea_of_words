@@ -14,11 +14,14 @@ export class GameManager extends Component {
     @property(Node)
     wordsBoard: Node
 
-
     _activeLevel: JsonAsset;
 
-    _changeLevel() {
+    protected onEnable(): void {
+        this._activeLevel = this.levels[0];
+        this._changeLevel()
+    }
 
+    _changeLevel() {
         const letters = this._getLevelsLetters();
         const words = this._getLevelsLetters()
         this.lettersCircle.getComponent(LettersCircle).setLetters(letters);
@@ -27,7 +30,6 @@ export class GameManager extends Component {
 
     _getLevelsLetters() {
         const { words } = this._activeLevel.json;
-
         const uniqueLetters: string[] = Array.from(new Set(words.join('').split('')));
         words.forEach((w: string) => {
             const wordsLetters = w.split('')
@@ -44,11 +46,7 @@ export class GameManager extends Component {
         return uniqueLetters;
     }
 
-    protected onEnable(): void {
-        this._activeLevel = this.levels[0];
-        this._changeLevel()
-
-    }
+    
 
 }
 

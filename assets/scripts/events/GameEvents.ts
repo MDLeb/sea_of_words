@@ -1,12 +1,16 @@
 export enum GameEvents {
     NONE = 0,
 
-    GAME_START = 1,
+    GAME_START = 10,
     LEVEL_COMPLETE,
 
-    WORD_CORRECT = 2,
+    WORD_CORRECT = 20,
     WORD_INCORRECT,
 
+    LETTER_HOVER = 30,
     LETTER_CHOSEN,
-    LETTER_CANCELLED
+    LETTER_CANCELLED,
+
+    INPUT_MOVE = 40,
+    INPUT_END,
 }
