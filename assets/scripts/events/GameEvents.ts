@@ -6,6 +6,7 @@ export enum GameEvents {
 
     WORD_CORRECT = 20,
     WORD_INCORRECT,
+    WORD_CHANGED,
 
     LETTER_HOVER = 30,
     LETTER_CHOSEN,

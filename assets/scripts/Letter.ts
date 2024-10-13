@@ -4,14 +4,14 @@ import { GameEvents } from './events/GameEvents';
 import { gameEventTarget } from './events/GameEventTarget';
 const { ccclass, property } = _decorator;
 
-enum letterStyles {
+enum LetterStyles {
     DEFAULT, CHOSEN
 }
 
 @ccclass('LetterStyle')
 class LetterStyle {
-    @property({ type: Enum(letterStyles) })
-    style: letterStyles = letterStyles.DEFAULT
+    @property({ type: Enum(LetterStyles) })
+    style: LetterStyles = LetterStyles.DEFAULT
 
     @property({ type: Color })
     bgSpriteColor: Color = new Color(255, 255, 255, 255)
@@ -27,10 +27,10 @@ export class Letter extends Component {
     @property({ type: [LetterStyle] })
     letterStyles: LetterStyle[] = []
 
-    _currentStyle: letterStyles = letterStyles.DEFAULT
+    _currentStyle: LetterStyles = LetterStyles.DEFAULT
     _letterValue: string
-    _label;
-    _bgSprite;
+    _label: Label;
+    _bgSprite: Sprite;
 
 
     protected onEnable(): void {
@@ -55,34 +55,33 @@ export class Letter extends Component {
     _subscribeEvents(subscribe: boolean) {
         const fn = subscribe ? "on" : "off";
 
-        gameEventTarget[fn](GameEvents.LETTER_HOVER, this.onLetterHover, this);
+        gameEventTarget[fn](GameEvents.LETTER_CHOSEN, this.onLetterChosen, this);
+        gameEventTarget[fn](GameEvents.LETTER_CANCELLED, this.onLetterCancelled, this);
     }
 
-    _setCurrentStyle(style: letterStyles) {
+    _setCurrentStyle(style: LetterStyles) {
         const currentStyle = this.letterStyles[style];
-
-
         this._currentStyle = currentStyle.style;
 
         colorTween({ duration: 0.3, target: this._bgSprite, targetColor: currentStyle.bgSpriteColor })
         colorTween({ duration: 0.3, target: this._label, targetColor: currentStyle.letterColor })
     }
 
-    onLetterHover(node: Node) {
+    onLetterChosen(node: Node) {
         if (this.node !== node) return;
 
-        if (this._currentStyle !== letterStyles.CHOSEN) {
-            gameEventTarget.emit(GameEvents.LETTER_CHOSEN, this.node);
-            this._setCurrentStyle(letterStyles.CHOSEN)
+        if (this._currentStyle !== LetterStyles.CHOSEN) {
+            this._setCurrentStyle(LetterStyles.CHOSEN)
         }
-
     }
 
-    onLetterCancelled() {
-        this._setCurrentStyle(letterStyles.DEFAULT)
+    onLetterCancelled(node: Node) {
+        if (this.node !== node) return;
+
+        if (this._currentStyle !== LetterStyles.DEFAULT) {
+            this._setCurrentStyle(LetterStyles.DEFAULT)
+        }
     }
-
-
 }
 
 

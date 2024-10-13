@@ -28,10 +28,13 @@
       },
       {
         "__id__": 10
+      },
+      {
+        "__id__": 12
       }
     ],
     "_prefab": {
-      "__id__": 12
+      "__id__": 18
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -64,7 +67,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Letter",
+    "_name": "Value",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -154,9 +157,9 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 88,
-      "g": 89,
-      "b": 91,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_string": "a",
@@ -268,6 +271,109 @@
   {
     "__type__": "cc.CompPrefabInfo",
     "fileId": "4cb+x80JhNwbBde43hRaK9"
+  },
+  {
+    "__type__": "74f11+2h3JP0qbO/jJLW/8O",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 13
+    },
+    "cellStyles": [
+      {
+        "__id__": 14
+      },
+      {
+        "__id__": 15
+      },
+      {
+        "__id__": 16
+      },
+      {
+        "__id__": 17
+      }
+    ],
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "08tCIIj1dP/Y2tMfQSN7B4"
+  },
+  {
+    "__type__": "CellStyle",
+    "style": 1,
+    "bgSpriteColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "letterColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    }
+  },
+  {
+    "__type__": "CellStyle",
+    "style": 0,
+    "bgSpriteColor": {
+      "__type__": "cc.Color",
+      "r": 101,
+      "g": 189,
+      "b": 101,
+      "a": 255
+    },
+    "letterColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    }
+  },
+  {
+    "__type__": "CellStyle",
+    "style": 2,
+    "bgSpriteColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "letterColor": {
+      "__type__": "cc.Color",
+      "r": 80,
+      "g": 80,
+      "b": 80,
+      "a": 255
+    }
+  },
+  {
+    "__type__": "CellStyle",
+    "style": 3,
+    "bgSpriteColor": {
+      "__type__": "cc.Color",
+      "r": 184,
+      "g": 65,
+      "b": 65,
+      "a": 255
+    },
+    "letterColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

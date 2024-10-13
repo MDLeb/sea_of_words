@@ -67,7 +67,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Letter",
+    "_name": "Value",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1

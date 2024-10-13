@@ -30,7 +30,8 @@ export class LettersCircle extends Component {
     _subscribeEvents(subscribe: boolean) {
         const fn = subscribe ? "on" : "off";
 
-        gameEventTarget[fn](GameEvents.LETTER_CHOSEN, this.onLetterChosen, this);
+        gameEventTarget[fn](GameEvents.LETTER_HOVER, this.onLetterHover, this);
+        gameEventTarget[fn](GameEvents.INPUT_END, this.onInputEnd, this);
     }
 
     setLetters(letters: string[]) {
@@ -51,26 +52,52 @@ export class LettersCircle extends Component {
         })
     }
 
-    getWorld() {
+    getWord() {
         return this._dynamicWord
             .map((node) => node.getComponent(Letter).getValue())
-            .reduce((a, b) => a + b);
+            .reduce((a, b) => a + b, '');
     }
 
-    onLetterChosen(node: Node) {
+    onLetterHover(node: Node) {
         const length = this._dynamicWord.length;
-       
 
         if (!length) {
             this._dynamicWord.push(node);
-        } else if (this._dynamicWord[length - 2] === node) {
-            this._dynamicWord.length--;
-        } else {
-            this._dynamicWord.push(node)
+
+            gameEventTarget.emit(GameEvents.LETTER_CHOSEN, node);
+            gameEventTarget.emit(GameEvents.WORD_CHANGED, this.getWord());
+
+            return;
         }
 
-        console.log(this.getWorld());
+        if (this._dynamicWord[length - 2] === node) {
+            const cancelledLetter = this._dynamicWord.pop();
+            this._dynamicWord[length - 2] = node;
 
+            gameEventTarget.emit(GameEvents.LETTER_CANCELLED, cancelledLetter);
+            gameEventTarget.emit(GameEvents.WORD_CHANGED, this.getWord());
+
+            return;
+        }
+
+        if (this._dynamicWord.indexOf(node) < 0) {
+            this._dynamicWord.push(node);
+
+            gameEventTarget.emit(GameEvents.LETTER_CHOSEN, node);
+            gameEventTarget.emit(GameEvents.WORD_CHANGED, this.getWord());
+
+            return;
+        }
+
+    }
+
+    onInputEnd() {
+        this._dynamicWord.forEach((letterNode: Node) => {
+            gameEventTarget.emit(GameEvents.LETTER_CANCELLED, letterNode);
+        });
+        this._dynamicWord = [];
+
+        gameEventTarget.emit(GameEvents.WORD_CHANGED, this.getWord());
     }
 }
 

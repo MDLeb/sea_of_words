@@ -1,7 +1,7 @@
-import { Sprite, Color, tween } from 'cc';
+import { Sprite, Color, tween, Label } from 'cc';
 export const colorTween = (params: {
     duration: number,
-    target: Sprite,
+    target: Sprite | Label,
     targetColor: Color
 }) => {
     const { duration, target, targetColor } = params

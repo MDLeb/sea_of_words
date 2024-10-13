@@ -233,7 +233,7 @@
         "__id__": 9
       },
       {
-        "__id__": 13
+        "__id__": 12
       }
     ],
     "_active": true,
@@ -383,9 +383,6 @@
       },
       {
         "__id__": 11
-      },
-      {
-        "__id__": 12
       }
     ],
     "_prefab": null,
@@ -440,22 +437,6 @@
     "_id": "73rB7axsBD37RxCxs74B9K"
   },
   {
-    "__type__": "10ffeWjl+9LqZyBohNFQSe9",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 9
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "letterPrefab": {
-      "__uuid__": "08fcebe5-d388-430c-9238-eff6eaae25c8",
-      "__expectedType__": "cc.Prefab"
-    },
-    "radius": 130,
-    "_id": "cagJ3QtspFnpRlbMHUQTsU"
-  },
-  {
     "__type__": "b297buBRQ9HIaa74u+K7cyt",
     "_name": "",
     "_objFlags": 0,
@@ -482,6 +463,9 @@
     "_active": true,
     "_components": [
       {
+        "__id__": 13
+      },
+      {
         "__id__": 14
       }
     ],
@@ -501,8 +485,8 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.6,
+      "y": 0.6,
       "z": 1
     },
     "_mobility": 0,
@@ -520,7 +504,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 13
+      "__id__": 12
     },
     "_enabled": true,
     "__prefab": null,
@@ -535,6 +519,22 @@
       "y": 0.5
     },
     "_id": "feUvUilvRA6JyPyZ8x3bzc"
+  },
+  {
+    "__type__": "d5f4cSjHlVD36gS7dvLx4sD",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 12
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "cellPrefab": {
+      "__uuid__": "367bca06-f07b-4172-81d8-2eccff52dbf4",
+      "__expectedType__": "cc.Prefab"
+    },
+    "gap": 100,
+    "_id": "6fMCmnvsFGLox+Y4vvp4C0"
   },
   {
     "__type__": "cc.UITransform",
@@ -863,10 +863,7 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "_customMaterial": {
-      "__uuid__": "37dd68d4-1c3b-40f2-86d7-91277e2e4f7b",
-      "__expectedType__": "cc.Material"
-    },
+    "_customMaterial": null,
     "_srcBlendFactor": 2,
     "_dstBlendFactor": 4,
     "_color": {
@@ -893,7 +890,7 @@
       "b": 255,
       "a": 255
     },
-    "_miterLimit": 0,
+    "_miterLimit": 10,
     "_id": "d7Bmy5H3ZF34GWjWVYjOsr"
   },
   {

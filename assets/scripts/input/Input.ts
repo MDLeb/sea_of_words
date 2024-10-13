@@ -2,6 +2,7 @@ import { _decorator, Component, EventTouch, math, Node, NodeEventType, UITransfo
 import { traverse } from '../helpers/traverse';
 import { gameEventTarget } from '../events/GameEventTarget';
 import { GameEvents } from '../events/GameEvents';
+import { Letter } from '../Letter';
 const { ccclass, property } = _decorator;
 
 @ccclass('Input')
@@ -11,7 +12,7 @@ export class Input extends Component {
         
     protected onEnable(): void {
         this._subscribeEvents(true);
-        traverse(this.node, (child: Node) => {child.name === 'Letter' && this._children.push(child)});
+        traverse(this.node, (child: Node) => {child.name === 'Letter' && this._children.push(child)});        
     }
 
     protected onDisable(): void {
