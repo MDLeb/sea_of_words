@@ -29,8 +29,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Print current directory
-        run: pwd
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
@@ -39,7 +37,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: 'build/single-file-3x.html'
+          path: 'build'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
