@@ -37,12 +37,12 @@ export class Cell extends Component {
 
     setValue(letter: string) {
         this._letterValue = letter;
-        this._label.string = letter;
+        this._label.string = ` ${letter.toUpperCase()} `;
     }
 
-    setStyle(style: CellStyles) {
+    setStyle(style: CellStyles, duration: number = 0.3) {
         this._currentStyle = style;
-        this._setCurrentStyle(style);
+        this._setCurrentStyle(style, duration);
     }
 
 

@@ -5,5 +5,11 @@
       "name": "GAME",
       "value": 1
     }
-  ]
+  ],
+  "general": {
+    "designResolution": {
+      "width": 640,
+      "height": 1136
+    }
+  }
 }

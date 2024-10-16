@@ -3,6 +3,7 @@ export enum GameEvents {
 
     GAME_START = 10,
     LEVEL_COMPLETE,
+    LEVEL_CHANGED,
 
     WORD_CORRECT = 20,
     WORD_INCORRECT,

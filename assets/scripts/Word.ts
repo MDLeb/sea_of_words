@@ -38,8 +38,8 @@ export class Word extends Component {
 
     setWord(word: string) {
         this._word = word;
-
-        word.split('').forEach((l: string, i: number) => {
+        const wordLetters = word.split('')
+        wordLetters.forEach((l: string, i: number) => {
             const cell = instantiate(this.cellPrefab);
             const cellComponent = cell.getComponent(Cell);
             this.node.addChild(cell);
@@ -47,7 +47,7 @@ export class Word extends Component {
             cellComponent.setValue(l);
             this._cells.push(cellComponent);
 
-            cell.position = v3(i * this.gap, 0, 0);
+            cell.position = v3(i * this.gap - (wordLetters.length - 1) * this.gap / 2, 0, 0);
         })
     }
 

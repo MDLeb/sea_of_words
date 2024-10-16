@@ -49,7 +49,7 @@
       "z": 1
     },
     "_mobility": 0,
-    "_layer": 33554432,
+    "_layer": 1,
     "_euler": {
       "__type__": "cc.Vec3",
       "x": 0,
@@ -100,7 +100,7 @@
       "__uuid__": "367bca06-f07b-4172-81d8-2eccff52dbf4",
       "__expectedType__": "cc.Prefab"
     },
-    "gap": 90,
+    "gap": 72,
     "_id": ""
   },
   {

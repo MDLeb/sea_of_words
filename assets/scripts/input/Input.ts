@@ -9,15 +9,21 @@ const { ccclass, property } = _decorator;
 export class Input extends Component {
 
     _children: Node[] = [];
-        
+
     protected onEnable(): void {
         this._subscribeEvents(true);
-        traverse(this.node, (child: Node) => {child.name === 'Letter' && this._children.push(child)});        
+        this.updateLevel();
+    }
+
+    updateLevel() {
+        this._children = [];
+        traverse(this.node, (child: Node) => { child.name === 'Letter' && this._children.push(child) });
+
     }
 
     protected onDisable(): void {
         this._subscribeEvents(false)
-    
+
     }
 
     _subscribeEvents(subscribe: boolean) {
@@ -29,19 +35,21 @@ export class Input extends Component {
         this.node[fn](NodeEventType.TOUCH_MOVE, this.onTouchMove, this);
     }
 
-    onTouchStart(e: EventTouch){
+    onTouchStart(e: EventTouch) {
 
     }
 
-    onTouchMove(event: EventTouch){
-       
+    onTouchMove(event: EventTouch) {
+
         gameEventTarget.emit(GameEvents.INPUT_MOVE, event);
         const touchLocation = event.getUILocation();
-        
+
         this._children.forEach(child => {
+            
             const uiTransform = child.getComponent(UITransform);
             if (!uiTransform) return;
-            const radius = uiTransform.width / 2;
+            const radius = (uiTransform.width / 2) * child.parent.parent.scale.x;
+
             const worldPosition = child.getWorldPosition();
             const distance = Math.sqrt(Math.pow(worldPosition.x - touchLocation.x, 2) + Math.pow(worldPosition.y - touchLocation.y, 2));
             if (distance <= radius) {

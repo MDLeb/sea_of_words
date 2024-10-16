@@ -1,4 +1,4 @@
-import { _decorator, CCFloat, Component, instantiate, Node, Prefab, v3, geometry, Line, Graphics, Vec3, EventTouch } from 'cc';
+import { _decorator, CCFloat, Component, instantiate, Node, Prefab, v3, view } from 'cc';
 import { Letter } from './Letter';
 import { gameEventTarget } from './events/GameEventTarget';
 import { GameEvents } from './events/GameEvents';
@@ -34,13 +34,14 @@ export class LettersCircle extends Component {
         gameEventTarget[fn](GameEvents.INPUT_END, this.onInputEnd, this);
     }
 
+
     setLetters(letters: string[]) {
         this._lettersParentNode = this.node.getChildByName('letters_node');
         this._letters = letters;
         letters.forEach((letter: string, i: number) => {
             const letterNode = instantiate(this.letterPrefab);
             this._lettersParentNode.addChild(letterNode);
-
+            this._lettersNodes.push(letterNode);
 
             const angle = Math.PI * (0.5 + (2 / letters.length * i));
             const x = Math.cos(angle) * this.radius;
@@ -50,6 +51,12 @@ export class LettersCircle extends Component {
 
             letterNode.getComponent(Letter).setValue(letter);
         })
+    }
+
+    reset() {
+        this._lettersNodes.forEach((letter: Node) => this._lettersParentNode.removeChild(letter));
+        this._letters = [];
+        this._lettersNodes = [];
     }
 
     getWord() {

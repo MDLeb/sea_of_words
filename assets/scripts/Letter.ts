@@ -1,4 +1,4 @@
-import { _decorator, Color, Component, Enum, Label, Node, NodeEventType, Sprite, tween } from 'cc';
+import { _decorator, Color, Component, Enum, Label, Node, Sprite } from 'cc';
 import { colorTween } from './helpers/colorTween';
 import { GameEvents } from './events/GameEvents';
 import { gameEventTarget } from './events/GameEventTarget';
@@ -35,6 +35,7 @@ export class Letter extends Component {
 
     protected onEnable(): void {
         this._label = this.node.getComponentInChildren(Label);
+
         this._bgSprite = this.node.getComponent(Sprite);
         this._subscribeEvents(true);
     }
@@ -45,7 +46,7 @@ export class Letter extends Component {
 
     setValue(letter: string) {
         this._letterValue = letter;
-        this._label.string = letter.toUpperCase();
+        this._label.string = ` ${letter.toUpperCase()} `;
     }
     getValue() {
         return this._letterValue
