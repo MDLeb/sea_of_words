@@ -40,7 +40,6 @@ export class Input extends Component {
     }
 
     onTouchMove(event: EventTouch) {
-
         gameEventTarget.emit(GameEvents.INPUT_MOVE, event);
         const touchLocation = event.getUILocation();
 
